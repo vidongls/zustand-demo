@@ -46,7 +46,7 @@ function App() {
 						onChange={(e) => onChangeInput(e.target.value)}
 						value={input}
 					/>
-					{isUpdate ? (
+					{isUpdate && todos.length > 0 ? (
 						<button
 							className="h-10 px-6 font-semibold bg-blue-500 text-white rounded-tr-lg rounded-br-lg hover:bg-blue-400"
 							onClick={onUpdateTodo}
