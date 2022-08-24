@@ -33,6 +33,8 @@ function App() {
 			...itemUpdate,
 			description: input,
 		});
+        setIsUpdate(false)
+        setInput('')
 	};
 
 	return (
