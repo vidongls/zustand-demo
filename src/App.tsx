@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import { ITodo, useTodoStore } from "./store/TodoStore";
+import { ITodo, useTodoStore } from "./store/useTodoStore";
 
 function App() {
 	const { todos, addTodo, removeTodo, updateTodo, completeTodo } = useTodoStore();
@@ -20,12 +20,14 @@ function App() {
 			return;
 		}
 		addTodo(input);
+		setInput("");
 	};
 
 	const handleUpdateTodo = (todo: ITodo) => {
 		setIsUpdate(true);
 		setInput(todo.description);
 		setItemUpdate(todo);
+        setValidate(false)
 	};
 
 	const onUpdateTodo = () => {
@@ -33,8 +35,8 @@ function App() {
 			...itemUpdate,
 			description: input,
 		});
-        setIsUpdate(false)
-        setInput('')
+		setIsUpdate(false);
+		setInput("");
 	};
 
 	return (
@@ -70,7 +72,7 @@ function App() {
 						<li className="bg-blue-50 rounded-lg p-3 font-medium text-gray-700 flex justify-between mb-3" key={todo.id}>
 							<div className="flex align-center">
 								<input type="checkbox" checked={todo.completed} onChange={() => completeTodo(todo.id)} />
-								<span className="ml-2">{todo.description}</span>
+								<span className={`ml-2 ${todo.completed ? "line-through text-gray-400" : ""}`}>{todo.description}</span>
 							</div>
 							<div>
 								<span
@@ -79,9 +81,15 @@ function App() {
 								>
 									Update
 								</span>
-								<span className="text-red-500 hover:text-red-400 cursor-pointer" onClick={() => removeTodo(todo.id)}>
+								<button
+									disabled={todo.id === itemUpdate.id}
+									className={`text-red-500 hover:text-red-400 cursor-pointer ${
+										todo.id === itemUpdate.id ? " cursor-not-allowed" : ""
+									}`}
+									onClick={() => removeTodo(todo.id)}
+								>
 									Delete
-								</span>
+								</button>
 							</div>
 						</li>
 					))}

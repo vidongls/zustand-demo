@@ -57,6 +57,7 @@ export const useTodoStore = create<TodoState>()(
 			{
 				name: "todos-storage",
 			}
-		)
+		),
+		{ name: "MyTodoStore" }
 	)
 );
