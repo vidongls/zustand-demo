@@ -6,20 +6,28 @@ function App() {
 	const { todos, addTodo, removeTodo, updateTodo, completeTodo } = useTodoStore();
 	const [input, setInput] = useState("");
 	const [itemUpdate, setItemUpdate] = useState<ITodo>({ id: "", description: "", completed: false });
-	const [validate, setValidate] = useState(false);
+	const [validate, setValidate] = useState("");
 	const [isUpdate, setIsUpdate] = useState(false);
 
 	const onChangeInput = (value: string) => {
 		setInput(value);
-		setValidate(false);
+		setValidate("");
 	};
 
 	const handleAddTodo = () => {
 		if (!input) {
-			setValidate(true);
+			setValidate("Input invalid!");
 			return;
 		}
-		addTodo(input);
+
+		const checkExists = todos.some((todo) => todo.description.toLowerCase().trim() === input.toLowerCase().trim());
+
+		if (checkExists) {
+			setValidate("Task already exists!");
+			return;
+		}
+
+		addTodo(input.trim());
 		setInput("");
 	};
 
@@ -27,13 +35,13 @@ function App() {
 		setIsUpdate(true);
 		setInput(todo.description);
 		setItemUpdate(todo);
-        setValidate(false)
+		setValidate("");
 	};
 
 	const onUpdateTodo = () => {
 		updateTodo({
 			...itemUpdate,
-			description: input,
+			description: input.trim(),
 		});
 		setIsUpdate(false);
 		setInput("");
@@ -66,7 +74,7 @@ function App() {
 						</button>
 					)}
 				</div>
-				{validate && <p className="text-red-600">Input invalid!</p>}
+				{validate && <p className="text-red-600">{validate}</p>}
 				<ul className="mt-4">
 					{todos?.map((todo) => (
 						<li className="bg-blue-50 rounded-lg p-3 font-medium text-gray-700 flex justify-between mb-3" key={todo.id}>
