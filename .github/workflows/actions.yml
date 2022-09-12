@@ -15,11 +15,11 @@ jobs:
     - name: Generate build
       run: npm ci && npm run build
     - name: Publish
-        uses: cloudflare/pages-action@1
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          projectName: demo
-          directory: build
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
+      uses: cloudflare/pages-action@1
+      with:
+        apiToken: ${{ secrets.CF_API_TOKEN }}
+        accountId: ${{ secrets.CF_ACCOUNT_ID }}
+        projectName: demo
+        directory: build
+        gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+        branch: main
