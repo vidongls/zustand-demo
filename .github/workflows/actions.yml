@@ -1,9 +1,6 @@
 name: demo-cloudflare
 
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 jobs:
   deploy:
