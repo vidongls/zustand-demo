@@ -1,16 +1,21 @@
 name: demo
-on:
-  workflow_dispatch:
-    inputs:
-      branch:
+on: workflow_dispatch:
+
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      deployments: write
     name: Publish to Cloudflare Pages
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: main
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - name: Generate build
+      run: npm ci && npm run build
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -23,5 +28,6 @@ jobs:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           projectName: demo
-          directory: src
+          directory: build
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
