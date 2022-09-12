@@ -2,7 +2,7 @@ name: demo
 on:
   workflow_dispatch:
     inputs:
-      branch:
+      branch: main
 
 jobs:
   publish:
