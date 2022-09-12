@@ -14,12 +14,7 @@ jobs:
         node-version: 16
     - name: Generate build
       run: npm ci && npm run build
-    - name: Checkout
-        uses: actions/checkout@v3
-
-      # Run a build step here if your project requires
-
-      - name: Publish to Cloudflare Pages
+    - name: Publish
         uses: cloudflare/pages-action@1
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
