@@ -3,7 +3,6 @@ on:
   workflow_dispatch:
     inputs:
       branch:
-        description: 'Branch (Mx-123, v1.2.3)'
 
 jobs:
   publish:
@@ -24,5 +23,5 @@ jobs:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           projectName: demo
-          directory: /
+          directory: src
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
