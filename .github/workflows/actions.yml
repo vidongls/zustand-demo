@@ -14,8 +14,7 @@ jobs:
         node-version: 16
     - name: Generate build
       run: npm ci && npm run build
-    steps:
-      - name: Checkout
+    - name: Checkout
         uses: actions/checkout@v3
 
       # Run a build step here if your project requires
